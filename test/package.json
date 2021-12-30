@@ -1,0 +1,17 @@
+{
+  "name": "dev",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "node ./esbuild.config.mjs",
+    "watch-dev": "node ./esbuild.config.mjs --dev"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "liveelements": "../"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.35",
+    "esbuild": "^0.13.8"
+  }
+}

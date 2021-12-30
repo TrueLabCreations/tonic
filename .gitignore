@@ -2,4 +2,5 @@
 **/package-lock.json
 **/.source.*
 **/yarn.lock
+**/dist/*
 **/example/dist/*

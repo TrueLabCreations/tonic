@@ -1,25 +1,32 @@
 {
-  "name": "@optoolco/tonic",
-  "version": "13.3.7",
+  "name": "live-elements",
+  "version": "0.0.1",
   "description": "A component framework.",
   "scripts": {
-    "ci:test:tape-run": "build --bundle test/index.js | tape-run",
-    "lint": "standard -v",
-    "test": "node ./scripts/compile.js && node test/index.js | tape-run",
-    "test:open": "npm run build && build --bundle test/index.js | tape-run --browser chrome --keep-open",
-    "prepare": "node ./scripts/compile.js",
-    "compile": "node ./scripts/compile.js",
-    "dev": "node ./scripts/dev.js & tsc --project tsconfig.build.json --watch & cd example && yarn dev",
-    "build": "node ./scripts/compile.js && tsc --project tsconfig.build.json"
+    "test": "npm run clean && concurrently \"npm:watch-*\" \"npm:run-test\"",
+    "run-test": "cd test && npm run test",
+    "clean": "node ./scripts/clean.js",
+    "types": "tsc --project tsconfig.build.json",
+    "watch-types": "tsc --project tsconfig.build.json --watch",
+    "watch-dev": "node ./scripts/dev.js",
+    "watch": "npm run clean && concurrently \"npm:watch-*\"",
+    "prepare": "npm run clean && node ./scripts/compile.js",
+    "compile": "npm run clean && node ./scripts/compile.js",
+    "start": "npm run clean && concurrently \"npm:watch-*\" \"npm:dev-example\"",
+    "dev-example": "cd example && npm run dev",
+    "build": "npm run compile && npm run types && node ./scripts/build.js"
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
-  "author": "optoolco",
+  "author": "True Lab Creations",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "16.11.4",
+    "@types/prop-types": "15.7.4",
+    "@typescript-eslint/eslint-plugin": "5.7.0",
+    "@typescript-eslint/parser": "5.7.0",
     "benchmark": "^2.1.4",
     "esbuild": "^0.8.36",
     "standard": "14.3.1",
@@ -40,11 +47,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/optoolco/tonic.git"
+    "url": "git+https://github.com/TrueLabCreations/LiveElements.git"
   },
   "bugs": {
-    "url": "https://github.com/optoolco/tonic/issues"
+    "url": "https://github.com/TrueLabCreations/LiveElements/issues"
   },
-  "homepage": "https://tonic.technology",
-  "dependencies": {}
+  "dependencies": {
+    "concurrently": "6.4.0",
+    "create-serve": "1.0.1",
+    "csstype": "3.0.10",
+    "watchr": "6.11.0"
+  }
 }

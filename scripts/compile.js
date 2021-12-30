@@ -5,21 +5,13 @@ const fs = require("fs")
 
 async function main() {
   const root = path.join(__dirname, "..")
-  const p = path.join(root, "src", "index.ts")
-
-  if (fs.existsSync("./dist")) {
-    fs.rmSync("./dist", { recursive: true }, (e) => {
-      if (e) {
-        throw e
-      }
-    })
-  }
+  const p = path.join(root, "src", "LiveElement.ts")
 
   try {
     esbuild.buildSync({
       entryPoints: [p],
       outdir: "./dist",
-      minify: true,
+      minify: false,
       bundle: true,
       sourcemap: true,
       format: "cjs",

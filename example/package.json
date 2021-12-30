@@ -3,17 +3,20 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "node ./esbuild.config.mjs --dev tsc --watch"
+    "build": "node ./esbuild.config.mjs",
+    "watch-dev": "node ./esbuild.config.mjs --dev",
+    "watch-types": "tsc --watch",
+    "dev": "concurrently npm:watch-*"
   },
   "files": [
     "src"
   ],
   "sideEffects": false,
   "dependencies": {
-    "@optoolco/tonic": "../"
+    "liveelements": "../"
   },
   "devDependencies": {
-    "tonic": "*",
+    "liveelements": "*",
     "@types/node": "^14.14.35",
     "concurrently": "6.0.1",
     "create-serve": "1.0.1",

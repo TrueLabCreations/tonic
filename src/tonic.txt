@@ -162,7 +162,8 @@ abstract class Tonic<
   static add(c: TLike): TLike
   static add(c: Function, htmlName: string): Function
   static add(c: TLike | Function, htmlName?: string) {
-    const name = c instanceof Tonic ? c.constructor.name : c.name
+    // console.log(`add class ${typeof c}, ${"isTonicTemplate" in c}, ${c.name}`)
+    const name = c.name
 
     if (!htmlName) {
       htmlName = Tonic._splitName(name).toLowerCase()
@@ -192,8 +193,8 @@ abstract class Tonic<
     Tonic._tags = Object.keys(Tonic._reg).join()
     window.customElements.define(htmlName, c as CustomElementConstructor)
 
-    if (c instanceof Tonic && typeof c.stylesheet === "function") {
-      Tonic.registerStyles(c.stylesheet)
+    if (typeof (c as any).stylesheet === "function") {
+      Tonic.registerStyles((c as any).stylesheet)
     }
 
     return c
@@ -351,8 +352,9 @@ abstract class Tonic<
         | any[]
         | any
     ) => {
-      if (o && "__children__" in o) return this._placehold(o)
-      if (o && "isTonicTemplate" in o) return o.rawText
+      console.log(o);
+      if (o && o.__children__) return this._placehold(o)
+      if (o && o.isTonicTemplate) return o.rawText
       switch (Object.prototype.toString.call(o)) {
         case "[object HTMLCollection]":
         case "[object NodeList]":
